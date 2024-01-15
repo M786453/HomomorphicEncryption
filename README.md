@@ -7,12 +7,17 @@
 
 - Install Microsoft Seal library using vcpkg (package manager)
 
-    https://github.com/microsoft/vcpkg
+    git clone https://github.com/Microsoft/vcpkg.git
+    cd vcpkg
+    ./bootstrap-vcpkg.sh  # ./bootstrap-vcpkg.bat for Windows
+    ./vcpkg integrate install
+    ./vcpkg install seal
 
+- READ EXAMPLES (MIN. 6) to get hands-on experience on HE
 
 ## Resources
 
-- https://github.com/microsoft/SEAL/tree/main/dotnet/examples
+- https://github.com/microsoft/SEAL/tree/main/native/examples
 
 - https://github.com/microsoft/SEAL
 
