@@ -8,7 +8,7 @@ using namespace seal;
 
 void example_bfv_basics()
 {
-    print_example_banner("Example: BFV Basics");
+    print_example_banner("Example: BFV Basics"); //  Brakerski/Fan-Vercauteren (BFV)
 
     /*
     In this example, we demonstrate performing simple computations (a polynomial
