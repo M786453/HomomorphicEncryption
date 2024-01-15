@@ -1,4 +1,14 @@
-# Full Homomorphic Encryption
+# Homomorphic Encryption
+
+## WORKFLOW
+
+- Get familiar with Homomorphic Encryption:
+    https://github.com/microsoft/SEAL
+
+- Install Microsoft Seal library using vcpkg (package manager)
+
+    https://github.com/microsoft/vcpkg
+
 
 ## Resources
 
