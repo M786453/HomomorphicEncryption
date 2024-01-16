@@ -47,6 +47,13 @@ void example_batch_encoder()
     works similarly for the BGV scheme to this example for the BFV scheme. For example,
     simply changing `scheme_type::bfv` into `scheme_type::bgv` can make this example
     work for the BGV scheme.
+
+    -------------------
+    KEY POINTS
+    -------------------
+    - Batching works similarly for the BGV scheme as for BFV scheme
+    - Allow to perform vactorizeable operations by forming matrices of plaintext polynomials
+    - Preferred method to use with BFV because of speed-up operations
     */
     EncryptionParameters parms(scheme_type::bfv);
     size_t poly_modulus_degree = 8192;
