@@ -1,4 +1,6 @@
 #pragma once
+#include <string>
+#include "cal.h"
 
 namespace BankFinanceCalculatorDemo {
 
@@ -8,6 +10,8 @@ namespace BankFinanceCalculatorDemo {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
+	
+
 
 	/// <summary>
 	/// Summary for Calculator
@@ -117,6 +121,7 @@ namespace BankFinanceCalculatorDemo {
 			this->avg_transaction->TabIndex = 2;
 			this->avg_transaction->Text = L"Average Transaction";
 			this->avg_transaction->UseVisualStyleBackColor = true;
+			this->avg_transaction->Click += gcnew System::EventHandler(this, &Calculator::avg_transaction_Click);
 			// 
 			// balance
 			// 
@@ -190,5 +195,17 @@ namespace BankFinanceCalculatorDemo {
 
 		this->Location = primaryScreen->WorkingArea.Location;
 	}
+
+
+		  
+
+private: System::Void avg_transaction_Click(System::Object^ sender, System::EventArgs^ e) {
+	
+
+	std::string rowText = avg_trans();
+
+	this->activity_logs->Text = gcnew String(rowText.c_str());
+
+}
 };
 }

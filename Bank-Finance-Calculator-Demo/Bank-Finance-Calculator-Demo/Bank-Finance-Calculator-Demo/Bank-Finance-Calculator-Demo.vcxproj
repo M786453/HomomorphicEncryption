@@ -122,15 +122,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="cal.cpp" />
     <ClCompile Include="Calculator.cpp" />
+    <ClCompile Include="csvreader.cpp" />
     <ClCompile Include="Dashboard.cpp" />
     <ClCompile Include="MainApp.cpp" />
     <ClCompile Include="Performance.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="cal.h" />
     <ClInclude Include="Calculator.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="csvreader.h" />
     <ClInclude Include="Dashboard.h">
       <FileType>CppForm</FileType>
     </ClInclude>
