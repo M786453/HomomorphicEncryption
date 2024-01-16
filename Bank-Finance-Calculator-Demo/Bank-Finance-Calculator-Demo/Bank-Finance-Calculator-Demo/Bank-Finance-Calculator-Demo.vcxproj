@@ -124,6 +124,7 @@
   <ItemGroup>
     <ClCompile Include="Calculator.cpp" />
     <ClCompile Include="Dashboard.cpp" />
+    <ClCompile Include="MainApp.cpp" />
     <ClCompile Include="Performance.cpp" />
   </ItemGroup>
   <ItemGroup>

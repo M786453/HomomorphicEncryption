@@ -64,7 +64,7 @@ namespace BankFinanceCalculatorDemo {
 			this->perf_lablel->Location = System::Drawing::Point(2, 128);
 			this->perf_lablel->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->perf_lablel->Name = L"perf_lablel";
-			this->perf_lablel->Size = System::Drawing::Size(513, 40);
+			this->perf_lablel->Size = System::Drawing::Size(1004, 40);
 			this->perf_lablel->TabIndex = 0;
 			this->perf_lablel->Text = L"No data to show!";
 			this->perf_lablel->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
@@ -74,16 +74,31 @@ namespace BankFinanceCalculatorDemo {
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(515, 325);
+			this->ClientSize = System::Drawing::Size(1006, 445);
 			this->Controls->Add(this->perf_lablel);
-			this->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->Margin = System::Windows::Forms::Padding(2);
 			this->Name = L"Performance";
+			this->StartPosition = System::Windows::Forms::FormStartPosition::Manual;
 			this->Text = L"Bank Finance Calculator";
+			this->Load += gcnew System::EventHandler(this, &Performance::Performance_Load);
 			this->ResumeLayout(false);
 
 		}
 #pragma endregion
 	private: System::Void label1_Click(System::Object^ sender, System::EventArgs^ e) {
+	}
+	private: System::Void Performance_Load(System::Object^ sender, System::EventArgs^ e) {
+
+		this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedSingle;
+
+		this->StartPosition = FormStartPosition::Manual;
+
+		Screen^ primaryScreen = Screen::PrimaryScreen;
+
+		this->Size = primaryScreen->WorkingArea.Size;
+
+		this->Location = primaryScreen->WorkingArea.Location;
+
 	}
 	};
 }
