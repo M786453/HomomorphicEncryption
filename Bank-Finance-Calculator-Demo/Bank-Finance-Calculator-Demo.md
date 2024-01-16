@@ -18,3 +18,12 @@ It have following features:
 - Show performance of homomorphic operations in comparison to non-homomorphic operations in the form of a chart
 or graph.
 - Show security analysis in a tab
+
+## Frontend
+
+- Tabs/Sections:
+
+    1. Home (For cacluations)
+    2. Performance 
+    3. Security
+    4. About
