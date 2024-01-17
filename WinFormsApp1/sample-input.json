@@ -1,0 +1,11 @@
+{
+    "DebitCharges": 25,
+    "Transactions":[
+        {"Credit": 1000},
+        {"Debit":100},
+        {"Debit":600},
+        {"Credit":500},
+        {"Debit":200},
+        {"Debit":50}
+    ]
+}
