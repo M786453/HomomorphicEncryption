@@ -30,7 +30,7 @@
     <ClCompile Include="csvreader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="cal.cpp">
+    <ClCompile Include="HomomorphicCalculator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -45,9 +45,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="csvreader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="cal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

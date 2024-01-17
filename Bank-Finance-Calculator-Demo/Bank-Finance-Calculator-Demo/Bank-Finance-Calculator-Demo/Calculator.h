@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
-#include "cal.h"
+#include "csvreader.h"
+#include <string>
 
 namespace BankFinanceCalculatorDemo {
 
@@ -196,13 +197,39 @@ namespace BankFinanceCalculatorDemo {
 		this->Location = primaryScreen->WorkingArea.Location;
 	}
 
+	/*std::string avg_trans() {
 
-		  
+			   // Show Plaintext Data to Users
+
+			   std::vector<std::vector<std::string>> rows = readCsv();
+
+			   std::string rowText;
+
+			   rowText += "> Reading Data.csv File...\n";
+
+			   for (const auto& row : rows) {
+
+				   for (const auto& value : row) {
+
+					   rowText += value + ", ";
+
+				   }
+
+				   rowText += "\n";
+
+			   }
+
+			   return rowText;
+
+	}*/
+
 
 private: System::Void avg_transaction_Click(System::Object^ sender, System::EventArgs^ e) {
 	
 
-	std::string rowText = avg_trans();
+
+	//std::string rowText = avg_trans();
+	std::string rowText = "Hello";
 
 	this->activity_logs->Text = gcnew String(rowText.c_str());
 

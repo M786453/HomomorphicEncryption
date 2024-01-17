@@ -78,40 +78,48 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>F:\CppLibraries\SEAL\native\src;F:\CppLibraries\SEAL\build\native\src;F:\CppLibraries\SEAL\build\thirdparty\msgsl-src\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalDependencies />
+      <AdditionalDependencies>seal-4.1.lib</AdditionalDependencies>
       <SubSystem>Windows</SubSystem>
       <EntryPointSymbol>main</EntryPointSymbol>
+      <AdditionalLibraryDirectories>F:\CppLibraries\SEAL\build\lib\Debug</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>WIN32;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>F:\CppLibraries\SEAL\native\src;F:\CppLibraries\SEAL\build\native\src;F:\CppLibraries\SEAL\build\thirdparty\msgsl-src\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalDependencies />
+      <AdditionalDependencies>seal-4.1.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>F:\CppLibraries\SEAL\build\lib\Debug</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>F:\CppLibraries\SEAL\native\src;F:\CppLibraries\SEAL\build\native\src;F:\CppLibraries\SEAL\build\thirdparty\msgsl-src\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalDependencies />
+      <AdditionalDependencies>seal-4.1.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>F:\CppLibraries\SEAL\build\lib\Debug</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>F:\CppLibraries\SEAL\native\src;F:\CppLibraries\SEAL\build\native\src;F:\CppLibraries\SEAL\build\thirdparty\msgsl-src\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalDependencies />
+      <AdditionalDependencies>seal-4.1.lib</AdditionalDependencies>
       <SubSystem>Windows</SubSystem>
       <EntryPointSymbol>main</EntryPointSymbol>
+      <AdditionalLibraryDirectories>F:\CppLibraries\SEAL\build\lib\Debug</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -122,7 +130,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="cal.cpp" />
+    <ClCompile Include="HomomorphicCalculator.cpp" />
     <ClCompile Include="Calculator.cpp" />
     <ClCompile Include="csvreader.cpp" />
     <ClCompile Include="Dashboard.cpp" />
@@ -130,7 +138,6 @@
     <ClCompile Include="Performance.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="cal.h" />
     <ClInclude Include="Calculator.h">
       <FileType>CppForm</FileType>
     </ClInclude>
