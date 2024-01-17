@@ -36,7 +36,7 @@
             // 
             // avg_transaction
             // 
-            avg_transaction.Location = new Point(144, 95);
+            avg_transaction.Location = new Point(423, 85);
             avg_transaction.Name = "avg_transaction";
             avg_transaction.Size = new Size(210, 55);
             avg_transaction.TabIndex = 0;
@@ -49,18 +49,18 @@
             activity_logs.BackColor = SystemColors.ActiveCaption;
             activity_logs.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
             activity_logs.ForeColor = SystemColors.ButtonFace;
-            activity_logs.Location = new Point(-2, 272);
+            activity_logs.Location = new Point(-2, 246);
             activity_logs.Name = "activity_logs";
-            activity_logs.Padding = new Padding(10);
-            activity_logs.Size = new Size(954, 275);
+            activity_logs.Padding = new Padding(10, 10, 10, 10);
+            activity_logs.Size = new Size(1286, 457);
             activity_logs.TabIndex = 1;
             activity_logs.Text = "Activity Logs";
             // 
             // btn_choose_file
             // 
-            btn_choose_file.Location = new Point(799, 24);
+            btn_choose_file.Location = new Point(1131, 23);
             btn_choose_file.Name = "btn_choose_file";
-            btn_choose_file.Size = new Size(141, 49);
+            btn_choose_file.Size = new Size(141, 48);
             btn_choose_file.TabIndex = 2;
             btn_choose_file.Text = "Choose File";
             btn_choose_file.UseVisualStyleBackColor = true;
@@ -70,9 +70,9 @@
             // 
             choosed_file.BackColor = SystemColors.ActiveCaption;
             choosed_file.ForeColor = SystemColors.ButtonFace;
-            choosed_file.Location = new Point(12, 24);
+            choosed_file.Location = new Point(11, 23);
             choosed_file.Name = "choosed_file";
-            choosed_file.Size = new Size(781, 49);
+            choosed_file.Size = new Size(1114, 48);
             choosed_file.TabIndex = 3;
             choosed_file.Text = "Please Choose Input File";
             choosed_file.TextAlign = ContentAlignment.MiddleCenter;
@@ -81,7 +81,7 @@
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(952, 543);
+            ClientSize = new Size(1284, 702);
             Controls.Add(choosed_file);
             Controls.Add(btn_choose_file);
             Controls.Add(activity_logs);
