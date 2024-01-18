@@ -12,6 +12,13 @@ namespace WinFormsApp1
             InitializeComponent();
         }
 
+        public void scroll_to_end()
+        {
+            // Scroll to the end
+            activity_logs.SelectionStart = activity_logs.Text.Length;
+            activity_logs.ScrollToCaret();
+        }
+
         public TransactionHistory transactions_history_obj;
         public class Transaction
         {
@@ -336,6 +343,8 @@ namespace WinFormsApp1
                 {
                     activity_logs.Text += "There is not transaction found.";
                 }
+
+                scroll_to_end();
             }
 
         }
@@ -366,6 +375,8 @@ namespace WinFormsApp1
 
                 activity_logs.Text = transactions_history_obj.encryptTransactions();
 
+                scroll_to_end();
+
             }
         }
 
@@ -380,7 +391,7 @@ namespace WinFormsApp1
                 activity_logs.Text += Environment.NewLine + Environment.NewLine + "> Calculating Account Balance from encrypted transactions...";
                 activity_logs.Text += Environment.NewLine + "> Account Balance: " + transactions_history_obj.encrypted_account_balance_calculation();
 
-
+                scroll_to_end();
             }
 
         }
@@ -396,7 +407,7 @@ namespace WinFormsApp1
                 activity_logs.Text += Environment.NewLine + Environment.NewLine + "> Calculating Debit Transactions Charges from encrypted transactions...";
                 activity_logs.Text += Environment.NewLine + "> Debit Transaction Charges: " + transactions_history_obj.encrypted_charges_calculation();
 
-
+                scroll_to_end();
             }
 
         }
