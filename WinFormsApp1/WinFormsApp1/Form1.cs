@@ -2,6 +2,7 @@ using Microsoft.Research.SEAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace WinFormsApp1
 {
@@ -420,6 +421,14 @@ namespace WinFormsApp1
         private void label3_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void performance_graph_Click(object sender, EventArgs e)
+        {
+            using (PerformanceChart chart = new PerformanceChart())
+            {
+                chart.ShowDialog();
+            }
         }
     }
 }

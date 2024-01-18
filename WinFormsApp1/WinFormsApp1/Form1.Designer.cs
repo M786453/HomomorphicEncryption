@@ -38,11 +38,12 @@
             bank_transaction_charges = new Button();
             label2 = new Label();
             label3 = new Label();
+            performance_graph = new Button();
             SuspendLayout();
             // 
             // transactions_aggregation
             // 
-            transactions_aggregation.Location = new Point(222, 257);
+            transactions_aggregation.Location = new Point(78, 257);
             transactions_aggregation.Name = "transactions_aggregation";
             transactions_aggregation.Size = new Size(256, 55);
             transactions_aggregation.TabIndex = 0;
@@ -76,18 +77,18 @@
             activity_logs.BackColor = SystemColors.ActiveCaption;
             activity_logs.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
             activity_logs.ForeColor = SystemColors.ButtonHighlight;
-            activity_logs.Location = new Point(-3, 395);
+            activity_logs.Location = new Point(-3, 365);
             activity_logs.Multiline = true;
             activity_logs.Name = "activity_logs";
             activity_logs.ScrollBars = ScrollBars.Vertical;
-            activity_logs.Size = new Size(1287, 310);
+            activity_logs.Size = new Size(1287, 340);
             activity_logs.TabIndex = 4;
             activity_logs.Text = "Activity Logs";
             // 
             // label1
             // 
             label1.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(-3, 345);
+            label1.Location = new Point(-3, 315);
             label1.Name = "label1";
             label1.Padding = new Padding(3, 10, 0, 0);
             label1.Size = new Size(1287, 47);
@@ -97,7 +98,7 @@
             // 
             // account_balance
             // 
-            account_balance.Location = new Point(542, 257);
+            account_balance.Location = new Point(398, 257);
             account_balance.Name = "account_balance";
             account_balance.Size = new Size(219, 55);
             account_balance.TabIndex = 6;
@@ -107,7 +108,7 @@
             // 
             // bank_transaction_charges
             // 
-            bank_transaction_charges.Location = new Point(825, 257);
+            bank_transaction_charges.Location = new Point(681, 257);
             bank_transaction_charges.Name = "bank_transaction_charges";
             bank_transaction_charges.Size = new Size(236, 55);
             bank_transaction_charges.TabIndex = 7;
@@ -136,11 +137,22 @@
             label3.Text = "Bank Finance Calculator";
             label3.Click += label3_Click;
             // 
+            // performance_graph
+            // 
+            performance_graph.Location = new Point(984, 257);
+            performance_graph.Name = "performance_graph";
+            performance_graph.Size = new Size(211, 55);
+            performance_graph.TabIndex = 10;
+            performance_graph.Text = "Performance Graph";
+            performance_graph.UseVisualStyleBackColor = true;
+            performance_graph.Click += performance_graph_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1284, 702);
+            Controls.Add(performance_graph);
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(bank_transaction_charges);
@@ -167,5 +179,6 @@
         private Button bank_transaction_charges;
         private Label label2;
         private Label label3;
+        private Button performance_graph;
     }
 }

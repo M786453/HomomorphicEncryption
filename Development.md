@@ -17,3 +17,6 @@ Tutorial: https://www.youtube.com/watch?v=JSJ1JI2alJg
 Install seal package using nuget package manager of visual studio
 
 used the seal implementation code from the example.
+
+Install Newtonsoft Json library using nuget
+Install Datavisulization library using nuget
