@@ -271,7 +271,7 @@ namespace WinFormsApp1
                 return bank_transaction_charges;
             }
 
-            
+
             public int encrypted_charges_calculation()
             {
 
@@ -286,7 +286,7 @@ namespace WinFormsApp1
                 Plaintext plaintextDebitCharges = new Plaintext($"{DebitCharges}");
 
                 encryptor.Encrypt(plaintextDebitCharges, encryptedDebitCharges);
-                
+
                 int total_debit_transactions = encryptedDebitTransactions.Count();
 
                 Ciphertext encrypted_debit_transcations_count = new Ciphertext();
@@ -295,7 +295,7 @@ namespace WinFormsApp1
 
                 encryptor.Encrypt(plaintext_debit_transactions_count, encrypted_debit_transcations_count);
 
-                evaluator.MultiplyInplace(encryptedDebitCharges,encrypted_debit_transcations_count);
+                evaluator.MultiplyInplace(encryptedDebitCharges, encrypted_debit_transcations_count);
 
                 Plaintext decryptedCharges = new Plaintext();
 
@@ -409,6 +409,16 @@ namespace WinFormsApp1
 
                 scroll_to_end();
             }
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
 
         }
     }

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             transactions_aggregation = new Button();
             btn_choose_file = new Button();
             choosed_file = new Label();
@@ -35,11 +36,13 @@
             label1 = new Label();
             account_balance = new Button();
             bank_transaction_charges = new Button();
+            label2 = new Label();
+            label3 = new Label();
             SuspendLayout();
             // 
             // transactions_aggregation
             // 
-            transactions_aggregation.Location = new Point(221, 125);
+            transactions_aggregation.Location = new Point(222, 257);
             transactions_aggregation.Name = "transactions_aggregation";
             transactions_aggregation.Size = new Size(256, 55);
             transactions_aggregation.TabIndex = 0;
@@ -49,7 +52,7 @@
             // 
             // btn_choose_file
             // 
-            btn_choose_file.Location = new Point(1131, 23);
+            btn_choose_file.Location = new Point(1132, 174);
             btn_choose_file.Name = "btn_choose_file";
             btn_choose_file.Size = new Size(141, 48);
             btn_choose_file.TabIndex = 2;
@@ -61,7 +64,7 @@
             // 
             choosed_file.BackColor = SystemColors.ActiveCaption;
             choosed_file.ForeColor = SystemColors.ButtonFace;
-            choosed_file.Location = new Point(11, 23);
+            choosed_file.Location = new Point(12, 174);
             choosed_file.Name = "choosed_file";
             choosed_file.Size = new Size(1114, 48);
             choosed_file.TabIndex = 3;
@@ -73,18 +76,18 @@
             activity_logs.BackColor = SystemColors.ActiveCaption;
             activity_logs.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
             activity_logs.ForeColor = SystemColors.ButtonHighlight;
-            activity_logs.Location = new Point(-3, 251);
+            activity_logs.Location = new Point(-3, 395);
             activity_logs.Multiline = true;
             activity_logs.Name = "activity_logs";
             activity_logs.ScrollBars = ScrollBars.Vertical;
-            activity_logs.Size = new Size(1287, 454);
+            activity_logs.Size = new Size(1287, 310);
             activity_logs.TabIndex = 4;
             activity_logs.Text = "Activity Logs";
             // 
             // label1
             // 
             label1.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(-3, 201);
+            label1.Location = new Point(-3, 345);
             label1.Name = "label1";
             label1.Padding = new Padding(3, 10, 0, 0);
             label1.Size = new Size(1287, 47);
@@ -94,7 +97,7 @@
             // 
             // account_balance
             // 
-            account_balance.Location = new Point(541, 125);
+            account_balance.Location = new Point(542, 257);
             account_balance.Name = "account_balance";
             account_balance.Size = new Size(219, 55);
             account_balance.TabIndex = 6;
@@ -104,7 +107,7 @@
             // 
             // bank_transaction_charges
             // 
-            bank_transaction_charges.Location = new Point(824, 125);
+            bank_transaction_charges.Location = new Point(825, 257);
             bank_transaction_charges.Name = "bank_transaction_charges";
             bank_transaction_charges.Size = new Size(236, 55);
             bank_transaction_charges.TabIndex = 7;
@@ -112,11 +115,34 @@
             bank_transaction_charges.UseVisualStyleBackColor = true;
             bank_transaction_charges.Click += bank_transaction_charges_Click;
             // 
+            // label2
+            // 
+            label2.Location = new Point(108, 70);
+            label2.Name = "label2";
+            label2.Size = new Size(916, 82);
+            label2.TabIndex = 8;
+            label2.Text = resources.GetString("label2.Text");
+            label2.TextAlign = ContentAlignment.TopCenter;
+            label2.Click += label2_Click;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label3.Location = new Point(474, 19);
+            label3.Name = "label3";
+            label3.Size = new Size(287, 32);
+            label3.TabIndex = 9;
+            label3.Text = "Bank Finance Calculator";
+            label3.Click += label3_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1284, 702);
+            Controls.Add(label3);
+            Controls.Add(label2);
             Controls.Add(bank_transaction_charges);
             Controls.Add(account_balance);
             Controls.Add(label1);
@@ -139,5 +165,7 @@
         private Label label1;
         private Button account_balance;
         private Button bank_transaction_charges;
+        private Label label2;
+        private Label label3;
     }
 }
