@@ -1,0 +1,15 @@
+***** HOMOMORPHIC ENCRYPTION DEMO INSTRUCTIONS ****
+
+1. Extract archive file of project.
+2. Download and install visual studio (with .NET Framework selection during installation)
+3. Open visual studio and click "Open a project or solution".
+    - Select the "WinFormsApp1.sln" file present in the extracted folder.
+4. After project loaded in visual studio, click on green play button to start the application.
+6. After application started, click "Choose File" and select "sample_input.json" file present
+in the extract directory.
+7. Then click on buttons to perform homomorphic operations on the data from json file.
+8. You can also see the performance graph by click the "Performance Graph" Button.
+
+Note: BFV scheme of Microsoft Seal Homomorphic Encryption library is being used in the application.
+The encryption scheme work accurate on smaller values.
+*****************************************************
