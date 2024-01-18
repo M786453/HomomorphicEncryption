@@ -28,21 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
-            avg_transaction = new Button();
+            transactions_aggregation = new Button();
             activity_logs = new Label();
             btn_choose_file = new Button();
             choosed_file = new Label();
             SuspendLayout();
             // 
-            // avg_transaction
+            // transactions_aggregation
             // 
-            avg_transaction.Location = new Point(423, 85);
-            avg_transaction.Name = "avg_transaction";
-            avg_transaction.Size = new Size(210, 55);
-            avg_transaction.TabIndex = 0;
-            avg_transaction.Text = "Average Transaction";
-            avg_transaction.UseVisualStyleBackColor = true;
-            avg_transaction.Click += avg_transaction_Click;
+            transactions_aggregation.Location = new Point(377, 85);
+            transactions_aggregation.Name = "transactions_aggregation";
+            transactions_aggregation.Size = new Size(256, 55);
+            transactions_aggregation.TabIndex = 0;
+            transactions_aggregation.Text = "Transactions Aggregation";
+            transactions_aggregation.UseVisualStyleBackColor = true;
+            transactions_aggregation.Click += transactions_aggregation_Click;
             // 
             // activity_logs
             // 
@@ -51,7 +51,7 @@
             activity_logs.ForeColor = SystemColors.ButtonFace;
             activity_logs.Location = new Point(-2, 246);
             activity_logs.Name = "activity_logs";
-            activity_logs.Padding = new Padding(10, 10, 10, 10);
+            activity_logs.Padding = new Padding(10);
             activity_logs.Size = new Size(1286, 457);
             activity_logs.TabIndex = 1;
             activity_logs.Text = "Activity Logs";
@@ -85,7 +85,7 @@
             Controls.Add(choosed_file);
             Controls.Add(btn_choose_file);
             Controls.Add(activity_logs);
-            Controls.Add(avg_transaction);
+            Controls.Add(transactions_aggregation);
             Name = "Form1";
             Text = "Homomorphic Encryption Demo";
             ResumeLayout(false);
@@ -93,7 +93,7 @@
 
         #endregion
 
-        private Button avg_transaction;
+        private Button transactions_aggregation;
         private Label activity_logs;
         private Button btn_choose_file;
         private Label choosed_file;

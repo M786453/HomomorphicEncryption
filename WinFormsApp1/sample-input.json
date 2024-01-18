@@ -1,11 +1,10 @@
 {
-    "DebitCharges": 25,
+    "DebitCharges": 2,
     "Transactions":[
-        {"Credit": 1000},
-        {"Debit":100},
-        {"Debit":600},
-        {"Credit":500},
-        {"Debit":200},
-        {"Debit":50}
+        {"Credit": 5},
+        {"Debit":1},
+        {"Debit":2},
+        {"Credit":1},
+        {"Debit":1}
     ]
 }
