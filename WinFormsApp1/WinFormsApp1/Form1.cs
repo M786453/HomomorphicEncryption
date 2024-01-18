@@ -1,16 +1,25 @@
 using Microsoft.Research.SEAL;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Windows.Forms.DataVisualization.Charting;
+using System.Diagnostics;
 
 namespace WinFormsApp1
 {
     public partial class Form1 : Form
     {
+        public static List<double> normal_operations_time = new List<double> { -1,-1,-1};
+        public static List<double> homomorphic_operations_time = new List<double> { -1,-1,-1};
         public Form1()
         {
             InitializeComponent();
+
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            activity_logs.ReadOnly = true;
         }
 
         public void scroll_to_end()
@@ -19,6 +28,8 @@ namespace WinFormsApp1
             activity_logs.SelectionStart = activity_logs.Text.Length;
             activity_logs.ScrollToCaret();
         }
+
+        
 
         public TransactionHistory transactions_history_obj;
         public class Transaction
@@ -63,7 +74,7 @@ namespace WinFormsApp1
                 ulong polyModulusDegree = 4096;
                 parms.PolyModulusDegree = polyModulusDegree;
                 parms.CoeffModulus = CoeffModulus.BFVDefault(polyModulusDegree);
-                parms.PlainModulus = new Modulus(1024);
+                parms.PlainModulus = new Modulus(1<<16);
 
                 context = new SEALContext(parms);
 
@@ -162,7 +173,7 @@ namespace WinFormsApp1
                 return output;
             }
 
-            public int[] transactionsAggregation()
+            public string[] transactionsAggregation()
             {
                 if (Transactions == null || Transactions.Count == 0)
                 {
@@ -172,12 +183,11 @@ namespace WinFormsApp1
                 int total_credit = creditTransacctions.Sum();
                 int total_debit = debitTransactions.Sum();
 
-
-                return [total_credit, total_debit];
+                return [total_credit.ToString(), total_debit.ToString()];
             }
 
 
-            public int[] encryptedTransactionsAggregation()
+            public string[] encryptedTransactionsAggregation()
             {
                 if (Transactions == null || Transactions.Count == 0)
                 {
@@ -202,19 +212,15 @@ namespace WinFormsApp1
                 Plaintext decryptedDebitSum = new Plaintext();
                 decryptor.Decrypt(encryptedDebitSum, decryptedDebitSum);
 
-
-                int decryptedCreditResult = int.Parse(decryptedCreditSum.ToString());
-                int decryptedDebitResult = int.Parse(decryptedDebitSum.ToString());
-
-                return [decryptedCreditResult, decryptedDebitResult];
+                return [decryptedCreditSum + "", decryptedDebitSum + ""];
             }
 
-            public int account_balance()
+            public string account_balance()
             {
 
                 if (Transactions == null || Transactions.Count == 0)
                 {
-                    return -1;
+                    return "";
                 }
 
 
@@ -224,15 +230,15 @@ namespace WinFormsApp1
 
                 int balance = total_credit - total_debit;
 
-                return balance;
+                return balance.ToString();
             }
 
-            public int encrypted_account_balance_calculation()
+            public string encrypted_account_balance_calculation()
             {
 
                 if (Transactions == null || Transactions.Count == 0)
                 {
-                    return -1;
+                    return "";
 
                 }
 
@@ -250,35 +256,36 @@ namespace WinFormsApp1
 
                 decryptor.Decrypt(encryptedCreditSum, decryptedBalance);
 
-                int balance = int.Parse(decryptedBalance.ToString());
+                
 
-                return balance;
+                //return int.Parse(decryptedBalance+"",NumberStyles.HexNumber) + "";
+                return decryptedBalance + "";
 
             }
 
 
-            public int bank_transaction_charges()
+            public string bank_transaction_charges()
             {
 
                 if (Transactions == null || Transactions.Count == 0)
                 {
-                    return -1;
+                    return "";
                 }
 
 
 
                 int bank_transaction_charges = debitTransactions.Count() * DebitCharges;
 
-                return bank_transaction_charges;
+                return bank_transaction_charges.ToString();
             }
 
 
-            public int encrypted_charges_calculation()
+            public string encrypted_charges_calculation()
             {
 
                 if (Transactions == null || Transactions.Count == 0)
                 {
-                    return -1;
+                    return "";
 
                 }
 
@@ -302,9 +309,9 @@ namespace WinFormsApp1
 
                 decryptor.Decrypt(encryptedDebitCharges, decryptedCharges);
 
-                int charges = int.Parse(decryptedCharges.ToString());
+                
 
-                return charges;
+                return decryptedCharges+"";
 
             }
 
@@ -316,10 +323,16 @@ namespace WinFormsApp1
 
             if (transactions_history_obj != null)
             {
+                Stopwatch sw = new Stopwatch();
+                
+
                 activity_logs.Text += Environment.NewLine + Environment.NewLine + "> Performing Aggration on Plaintext Transactions...";
                 activity_logs.Text += Environment.NewLine + "> Aggration Results:";
-                int[] plaintext_transaction_aggregation = transactions_history_obj.transactionsAggregation();
+                sw.Start();
+                string[] plaintext_transaction_aggregation = transactions_history_obj.transactionsAggregation();
+                sw.Stop();
 
+                normal_operations_time[0] = sw.Elapsed.TotalSeconds;
                 if (plaintext_transaction_aggregation.Length > 0)
                 {
                     activity_logs.Text += Environment.NewLine + "Total Credit Transaction Amount: " + plaintext_transaction_aggregation[0];
@@ -333,8 +346,10 @@ namespace WinFormsApp1
 
                 activity_logs.Text += Environment.NewLine + Environment.NewLine + "> Performing Aggration on Encrypted Transactions...";
                 activity_logs.Text += Environment.NewLine + "> Aggration Results:";
-                int[] homomorphic_transaction_aggregation = transactions_history_obj.encryptedTransactionsAggregation();
-
+                sw.Restart();
+                string[] homomorphic_transaction_aggregation = transactions_history_obj.encryptedTransactionsAggregation();
+                sw.Stop();
+                homomorphic_operations_time[0] = sw.Elapsed.TotalSeconds;
                 if (homomorphic_transaction_aggregation.Length > 0)
                 {
                     activity_logs.Text += Environment.NewLine + "Total Credit Transaction Amount: " + homomorphic_transaction_aggregation[0];
@@ -386,11 +401,21 @@ namespace WinFormsApp1
 
             if (transactions_history_obj != null)
             {
+                Stopwatch stopwatch = new Stopwatch();
                 activity_logs.Text += Environment.NewLine + Environment.NewLine + "> Calculating Account Balance from plaintext transactions...";
+                stopwatch.Start();
                 activity_logs.Text += Environment.NewLine + "> Account Balance: " + transactions_history_obj.account_balance(); ;
+                stopwatch.Stop();
+
+                normal_operations_time[1] = stopwatch.Elapsed.TotalSeconds;
+
 
                 activity_logs.Text += Environment.NewLine + Environment.NewLine + "> Calculating Account Balance from encrypted transactions...";
+                stopwatch.Restart();
                 activity_logs.Text += Environment.NewLine + "> Account Balance: " + transactions_history_obj.encrypted_account_balance_calculation();
+                stopwatch.Stop();
+
+                homomorphic_operations_time[1] = stopwatch.Elapsed.TotalSeconds;
 
                 scroll_to_end();
             }
@@ -402,12 +427,18 @@ namespace WinFormsApp1
 
             if (transactions_history_obj != null)
             {
+                Stopwatch stopwatch = new Stopwatch();
+                
                 activity_logs.Text += Environment.NewLine + Environment.NewLine + "> Calculating Debit Transactions Charges from plaintext transactions...";
+                stopwatch.Start();
                 activity_logs.Text += Environment.NewLine + "> Debit Transaction Charges: " + transactions_history_obj.bank_transaction_charges(); ;
-
+                stopwatch.Stop();
+                normal_operations_time[2] = (stopwatch.Elapsed.TotalSeconds); 
                 activity_logs.Text += Environment.NewLine + Environment.NewLine + "> Calculating Debit Transactions Charges from encrypted transactions...";
+                stopwatch.Restart();
                 activity_logs.Text += Environment.NewLine + "> Debit Transaction Charges: " + transactions_history_obj.encrypted_charges_calculation();
-
+                stopwatch.Stop();
+                homomorphic_operations_time[2] = (stopwatch.Elapsed.TotalSeconds);
                 scroll_to_end();
             }
 

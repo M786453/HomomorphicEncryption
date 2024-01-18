@@ -1,0 +1,9 @@
+{
+    "DebitCharges":25,
+    "Transactions":
+    [
+        {"Credit":5000},
+        {"Debit":1000},
+        {"Debit":2599}
+    ]
+}

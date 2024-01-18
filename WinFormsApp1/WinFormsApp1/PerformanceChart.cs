@@ -31,9 +31,9 @@ namespace WinFormsApp1
 
         private void PopulateChart()
         {
+
             
-            double[] normal_operations = { 10, 20, 15};
-            double[] homomorphic_operations = { 5, 15, 10};
+            
 
             string[] keywords_strings = { "Transaction Aggregation", "Account Balance", "Debit Transaction Charges"};
             
@@ -44,25 +44,29 @@ namespace WinFormsApp1
             Series series1 = new Series("Homomorphic Operations");
             series1.ChartType = SeriesChartType.Bar;
             series1.Color = System.Drawing.Color.Blue; 
-            for (int i = 0; i < normal_operations.Length; i++)
+            
+            for (int i = 0; i < Form1.normal_operations_time.Count; i++)
             {
-
-                DataPoint dataPoint = new DataPoint(i + 1, normal_operations[i]);
+                if(Form1.normal_operations_time[i] > 0) { 
+                DataPoint dataPoint = new DataPoint(i + 1, Form1.normal_operations_time[i]);
                 dataPoint.AxisLabel = keywords_strings[i];
                 series1.Points.Add(dataPoint);
-                
-                
+
+                }
+
             }
 
             
             Series series2 = new Series("Normal Operations");
             series2.ChartType = SeriesChartType.Bar;
             series2.Color = System.Drawing.Color.Red; 
-            for (int i = 0; i < homomorphic_operations.Length; i++)
+            for (int i = 0; i < Form1.homomorphic_operations_time.Count; i++)
             {
-                DataPoint dataPoint = new DataPoint(i + 1, homomorphic_operations[i]);
+                if(Form1.homomorphic_operations_time[i] > 0) { 
+                DataPoint dataPoint = new DataPoint(i + 1, Form1.homomorphic_operations_time[i]);
                 dataPoint.AxisLabel = keywords_strings[i];
                 series2.Points.Add(dataPoint);
+                }
             }
 
             
