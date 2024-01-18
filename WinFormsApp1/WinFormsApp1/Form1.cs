@@ -14,10 +14,10 @@ namespace WinFormsApp1
 
         public TransactionHistory transactions_history_obj;
         public class Transaction
-            {
-                public int? Credit { get; set; }
-                public int? Debit { get; set; }
-            }
+        {
+            public int? Credit { get; set; }
+            public int? Debit { get; set; }
+        }
 
 
         public class TransactionHistory
@@ -36,12 +36,13 @@ namespace WinFormsApp1
             public Encryptor encryptor;
 
             public Evaluator evaluator;
-            
+
             public Decryptor decryptor;
-            
+
             public SEALContext context;
 
-            public TransactionHistory() {
+            public TransactionHistory()
+            {
 
                 debitTransactions = new List<int> { };
                 creditTransacctions = new List<int> { };
@@ -84,7 +85,7 @@ namespace WinFormsApp1
 
             public string encryptTransactions()
             {
-                if(context.ParameterErrorMessage() != "valid")
+                if (context.ParameterErrorMessage() != "valid")
                 {
                     return context.ParameterErrorMessage();
                 }
@@ -133,14 +134,21 @@ namespace WinFormsApp1
                         encryptedDebitTransactions.Add(encryptedTransaction);
 
 
-                    }   
+                    }
 
                 }
 
-                string output = "\nPlaintext Credit Transactions:\n";
-                output += string.Join(", ", creditTransacctions);
-                output += "\nPlaintext Debit Transactions:\n";
-                output += string.Join(", ", debitTransactions);
+                string output = "> Reading json data:";
+                output += Environment.NewLine + "Plaintext Credit Transactions:";
+                output += Environment.NewLine + string.Join(", ", creditTransacctions);
+                output += Environment.NewLine +  "Plaintext Debit Transactions:";
+                output += Environment.NewLine + string.Join(", ", debitTransactions);
+                output += Environment.NewLine +  Environment.NewLine + "> Performing encryption on Transactions:";
+                output += Environment.NewLine + "Encrypted Credit Transactions:";
+                output += Environment.NewLine + string.Join(", ", encryptedCreditTransactions);
+                output += Environment.NewLine + "Encrypted Debit Transactions:";
+                output += Environment.NewLine + string.Join(", ", encryptedDebitTransactions);
+
 
                 return output;
             }
@@ -154,7 +162,7 @@ namespace WinFormsApp1
 
                 int total_credit = creditTransacctions.Sum();
                 int total_debit = debitTransactions.Sum();
-                
+
 
                 return [total_credit, total_debit];
             }
@@ -189,42 +197,44 @@ namespace WinFormsApp1
                 int decryptedCreditResult = int.Parse(decryptedCreditSum.ToString());
                 int decryptedDebitResult = int.Parse(decryptedDebitSum.ToString());
 
-                return [decryptedCreditResult,decryptedDebitResult];
+                return [decryptedCreditResult, decryptedDebitResult];
             }
 
         }
 
-    private void transactions_aggregation_Click(object sender, EventArgs e)
+        private void transactions_aggregation_Click(object sender, EventArgs e)
         {
-            
 
-            if(transactions_history_obj != null)
+
+            if (transactions_history_obj != null)
             {
-                activity_logs.Text = "> Performing Aggration on Plaintext Transactions:";
+                activity_logs.Text += Environment.NewLine + Environment.NewLine + "> Performing Aggration on Plaintext Transactions...";
+                activity_logs.Text += Environment.NewLine + "> Aggration Results:";
                 int[] plaintext_transaction_aggregation = transactions_history_obj.transactionsAggregation();
 
-                if (plaintext_transaction_aggregation.Length > 0) { 
-                activity_logs.Text += "\nTotal Credit Transaction Amount: " + plaintext_transaction_aggregation[0];
-                activity_logs.Text += "\nTotal Debit Transactions Amount: " + plaintext_transaction_aggregation[1];
+                if (plaintext_transaction_aggregation.Length > 0)
+                {
+                    activity_logs.Text += Environment.NewLine + "Total Credit Transaction Amount: " + plaintext_transaction_aggregation[0];
+                    activity_logs.Text += Environment.NewLine + "Total Debit Transactions Amount: " + plaintext_transaction_aggregation[1];
                 }
                 else
                 {
-                    activity_logs.Text = "There is not transaction found.";
+                    activity_logs.Text += Environment.NewLine +  "There is not transaction found.";
                 }
 
-                
-                activity_logs.Text += "\n\n> Performing Aggration on Encrypted Transactions:";
 
+                activity_logs.Text += Environment.NewLine + Environment.NewLine + "> Performing Aggration on Encrypted Transactions...";
+                activity_logs.Text += Environment.NewLine + "> Aggration Results:";
                 int[] homomorphic_transaction_aggregation = transactions_history_obj.encryptedTransactionsAggregation();
 
                 if (plaintext_transaction_aggregation.Length > 0)
                 {
-                    activity_logs.Text += "\nTotal Credit Transaction Amount: " + homomorphic_transaction_aggregation[0];
-                    activity_logs.Text += "\nTotal Debit Transactions Amount: " + homomorphic_transaction_aggregation[1];
+                    activity_logs.Text += Environment.NewLine + "Total Credit Transaction Amount: " + homomorphic_transaction_aggregation[0];
+                    activity_logs.Text += Environment.NewLine + "Total Debit Transactions Amount: " + homomorphic_transaction_aggregation[1];
                 }
                 else
                 {
-                    activity_logs.Text = "There is not transaction found.";
+                    activity_logs.Text += "There is not transaction found.";
                 }
             }
 
@@ -232,18 +242,18 @@ namespace WinFormsApp1
 
         private void btn_choose_file_Click(object sender, EventArgs e)
         {
-            
+
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            
+
             openFileDialog.Title = "Select a File";
             openFileDialog.Filter = "Json File (*.json)|*.json";
 
-            
+
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                
+
                 string selectedFileName = openFileDialog.FileName;
-                
+
                 choosed_file.Text = selectedFileName;
 
                 string transaction_details_json = File.ReadAllText(selectedFileName);
@@ -271,5 +281,6 @@ namespace WinFormsApp1
                 }*/
             }
         }
+
     }
 }
