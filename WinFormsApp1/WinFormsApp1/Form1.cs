@@ -23,6 +23,7 @@ namespace WinFormsApp1
         public class TransactionHistory
         {
             public int DebitCharges { get; set; }
+
             public List<Transaction> Transactions { get; set; }
 
             public List<int> debitTransactions;
@@ -141,9 +142,9 @@ namespace WinFormsApp1
                 string output = "> Reading json data:";
                 output += Environment.NewLine + "Plaintext Credit Transactions:";
                 output += Environment.NewLine + string.Join(", ", creditTransacctions);
-                output += Environment.NewLine +  "Plaintext Debit Transactions:";
+                output += Environment.NewLine + "Plaintext Debit Transactions:";
                 output += Environment.NewLine + string.Join(", ", debitTransactions);
-                output += Environment.NewLine +  Environment.NewLine + "> Performing encryption on Transactions:";
+                output += Environment.NewLine + Environment.NewLine + "> Performing encryption on Transactions:";
                 output += Environment.NewLine + "Encrypted Credit Transactions:";
                 output += Environment.NewLine + string.Join(", ", encryptedCreditTransactions);
                 output += Environment.NewLine + "Encrypted Debit Transactions:";
@@ -176,28 +177,127 @@ namespace WinFormsApp1
                 }
 
 
-                // Homomorphic addition of encrypted credit transactions
+
                 Ciphertext encryptedCreditSum = new Ciphertext();
                 evaluator.AddMany(encryptedCreditTransactions, encryptedCreditSum);
 
-                // Homomorphic addition of encrypted debit transactions
+
                 Ciphertext encryptedDebitSum = new Ciphertext();
                 evaluator.AddMany(encryptedDebitTransactions, encryptedDebitSum);
 
 
-                // Decrypting  credit sum
+
                 Plaintext decryptedCreditSum = new Plaintext();
                 decryptor.Decrypt(encryptedCreditSum, decryptedCreditSum);
 
-                // Decrypting  debit sum
+
                 Plaintext decryptedDebitSum = new Plaintext();
                 decryptor.Decrypt(encryptedDebitSum, decryptedDebitSum);
 
-                // Convert the results back to int
+
                 int decryptedCreditResult = int.Parse(decryptedCreditSum.ToString());
                 int decryptedDebitResult = int.Parse(decryptedDebitSum.ToString());
 
                 return [decryptedCreditResult, decryptedDebitResult];
+            }
+
+            public int account_balance()
+            {
+
+                if (Transactions == null || Transactions.Count == 0)
+                {
+                    return -1;
+                }
+
+
+                int total_credit = creditTransacctions.Sum();
+
+                int total_debit = debitTransactions.Sum();
+
+                int balance = total_credit - total_debit;
+
+                return balance;
+            }
+
+            public int encrypted_account_balance_calculation()
+            {
+
+                if (Transactions == null || Transactions.Count == 0)
+                {
+                    return -1;
+
+                }
+
+
+                Ciphertext encryptedCreditSum = new Ciphertext();
+                evaluator.AddMany(encryptedCreditTransactions, encryptedCreditSum);
+
+
+                Ciphertext encryptedDebitSum = new Ciphertext();
+                evaluator.AddMany(encryptedDebitTransactions, encryptedDebitSum);
+
+                evaluator.SubInplace(encryptedCreditSum, encryptedDebitSum);
+
+                Plaintext decryptedBalance = new Plaintext();
+
+                decryptor.Decrypt(encryptedCreditSum, decryptedBalance);
+
+                int balance = int.Parse(decryptedBalance.ToString());
+
+                return balance;
+
+            }
+
+
+            public int bank_transaction_charges()
+            {
+
+                if (Transactions == null || Transactions.Count == 0)
+                {
+                    return -1;
+                }
+
+
+
+                int bank_transaction_charges = debitTransactions.Count() * DebitCharges;
+
+                return bank_transaction_charges;
+            }
+
+            
+            public int encrypted_charges_calculation()
+            {
+
+                if (Transactions == null || Transactions.Count == 0)
+                {
+                    return -1;
+
+                }
+
+                Ciphertext encryptedDebitCharges = new Ciphertext();
+
+                Plaintext plaintextDebitCharges = new Plaintext($"{DebitCharges}");
+
+                encryptor.Encrypt(plaintextDebitCharges, encryptedDebitCharges);
+                
+                int total_debit_transactions = encryptedDebitTransactions.Count();
+
+                Ciphertext encrypted_debit_transcations_count = new Ciphertext();
+
+                Plaintext plaintext_debit_transactions_count = new Plaintext($"{total_debit_transactions}");
+
+                encryptor.Encrypt(plaintext_debit_transactions_count, encrypted_debit_transcations_count);
+
+                evaluator.MultiplyInplace(encryptedDebitCharges,encrypted_debit_transcations_count);
+
+                Plaintext decryptedCharges = new Plaintext();
+
+                decryptor.Decrypt(encryptedDebitCharges, decryptedCharges);
+
+                int charges = int.Parse(decryptedCharges.ToString());
+
+                return charges;
+
             }
 
         }
@@ -219,7 +319,7 @@ namespace WinFormsApp1
                 }
                 else
                 {
-                    activity_logs.Text += Environment.NewLine +  "There is not transaction found.";
+                    activity_logs.Text += Environment.NewLine + "There is not transaction found.";
                 }
 
 
@@ -227,7 +327,7 @@ namespace WinFormsApp1
                 activity_logs.Text += Environment.NewLine + "> Aggration Results:";
                 int[] homomorphic_transaction_aggregation = transactions_history_obj.encryptedTransactionsAggregation();
 
-                if (plaintext_transaction_aggregation.Length > 0)
+                if (homomorphic_transaction_aggregation.Length > 0)
                 {
                     activity_logs.Text += Environment.NewLine + "Total Credit Transaction Amount: " + homomorphic_transaction_aggregation[0];
                     activity_logs.Text += Environment.NewLine + "Total Debit Transactions Amount: " + homomorphic_transaction_aggregation[1];
@@ -265,22 +365,40 @@ namespace WinFormsApp1
                 transactions_history_obj = Newtonsoft.Json.JsonConvert.DeserializeObject<TransactionHistory>(transaction_details_json);
 
                 activity_logs.Text = transactions_history_obj.encryptTransactions();
-                /*activity_logs.Text += $"Debit Charges: {jsonObject.DebitCharges}";
 
-
-                foreach (var transaction in jsonObject.Transactions)
-                {
-                    if (transaction.Credit.HasValue)
-                    {
-                        activity_logs.Text += $"\nTransaction Type: Credit, Amount: {transaction.Credit.Value}";
-                    }
-                    else if (transaction.Debit.HasValue)
-                    {
-                        activity_logs.Text += $"\nTransaction Type: Debit, Amount: {transaction.Debit.Value}";
-                    }
-                }*/
             }
         }
 
+        private void account_balance_Click(object sender, EventArgs e)
+        {
+
+            if (transactions_history_obj != null)
+            {
+                activity_logs.Text += Environment.NewLine + Environment.NewLine + "> Calculating Account Balance from plaintext transactions...";
+                activity_logs.Text += Environment.NewLine + "> Account Balance: " + transactions_history_obj.account_balance(); ;
+
+                activity_logs.Text += Environment.NewLine + Environment.NewLine + "> Calculating Account Balance from encrypted transactions...";
+                activity_logs.Text += Environment.NewLine + "> Account Balance: " + transactions_history_obj.encrypted_account_balance_calculation();
+
+
+            }
+
+        }
+
+        private void bank_transaction_charges_Click(object sender, EventArgs e)
+        {
+
+            if (transactions_history_obj != null)
+            {
+                activity_logs.Text += Environment.NewLine + Environment.NewLine + "> Calculating Debit Transactions Charges from plaintext transactions...";
+                activity_logs.Text += Environment.NewLine + "> Debit Transaction Charges: " + transactions_history_obj.bank_transaction_charges(); ;
+
+                activity_logs.Text += Environment.NewLine + Environment.NewLine + "> Calculating Debit Transactions Charges from encrypted transactions...";
+                activity_logs.Text += Environment.NewLine + "> Debit Transaction Charges: " + transactions_history_obj.encrypted_charges_calculation();
+
+
+            }
+
+        }
     }
 }

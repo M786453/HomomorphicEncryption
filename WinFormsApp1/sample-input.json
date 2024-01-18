@@ -3,8 +3,6 @@
     "Transactions":[
         {"Credit": 5},
         {"Debit":1},
-        {"Debit":2},
-        {"Credit":1},
-        {"Debit":1}
+        {"Debit":2}
     ]
 }

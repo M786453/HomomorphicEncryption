@@ -33,11 +33,13 @@
             choosed_file = new Label();
             activity_logs = new TextBox();
             label1 = new Label();
+            account_balance = new Button();
+            bank_transaction_charges = new Button();
             SuspendLayout();
             // 
             // transactions_aggregation
             // 
-            transactions_aggregation.Location = new Point(127, 113);
+            transactions_aggregation.Location = new Point(221, 125);
             transactions_aggregation.Name = "transactions_aggregation";
             transactions_aggregation.Size = new Size(256, 55);
             transactions_aggregation.TabIndex = 0;
@@ -78,7 +80,6 @@
             activity_logs.Size = new Size(1287, 454);
             activity_logs.TabIndex = 4;
             activity_logs.Text = "Activity Logs";
-            //activity_logs.TextChanged += activity_logs_TextChanged;
             // 
             // label1
             // 
@@ -91,11 +92,33 @@
             label1.Text = "Activity Logs";
             label1.TextAlign = ContentAlignment.MiddleLeft;
             // 
+            // account_balance
+            // 
+            account_balance.Location = new Point(541, 125);
+            account_balance.Name = "account_balance";
+            account_balance.Size = new Size(219, 55);
+            account_balance.TabIndex = 6;
+            account_balance.Text = "Account Balance";
+            account_balance.UseVisualStyleBackColor = true;
+            account_balance.Click += account_balance_Click;
+            // 
+            // bank_transaction_charges
+            // 
+            bank_transaction_charges.Location = new Point(824, 125);
+            bank_transaction_charges.Name = "bank_transaction_charges";
+            bank_transaction_charges.Size = new Size(236, 55);
+            bank_transaction_charges.TabIndex = 7;
+            bank_transaction_charges.Text = "Bank Transaction Charges";
+            bank_transaction_charges.UseVisualStyleBackColor = true;
+            bank_transaction_charges.Click += bank_transaction_charges_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1284, 702);
+            Controls.Add(bank_transaction_charges);
+            Controls.Add(account_balance);
             Controls.Add(label1);
             Controls.Add(activity_logs);
             Controls.Add(choosed_file);
@@ -114,5 +137,7 @@
         private Label choosed_file;
         private TextBox activity_logs;
         private Label label1;
+        private Button account_balance;
+        private Button bank_transaction_charges;
     }
 }
