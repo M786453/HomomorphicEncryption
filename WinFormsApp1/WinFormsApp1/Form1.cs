@@ -61,6 +61,8 @@ namespace WinFormsApp1
 
             public SEALContext context;
 
+            public CKKSEncoder encoder;
+
             public TransactionHistory()
             {
 
@@ -69,12 +71,12 @@ namespace WinFormsApp1
                 encryptedCreditTransactions = new List<Ciphertext> { };
                 encryptedDebitTransactions = new List<Ciphertext> { };
 
-                EncryptionParameters parms = new EncryptionParameters(SchemeType.BFV);
+                EncryptionParameters parms = new EncryptionParameters(SchemeType.CKKS);
 
-                ulong polyModulusDegree = 4096;
+                ulong polyModulusDegree = 8192;
                 parms.PolyModulusDegree = polyModulusDegree;
-                parms.CoeffModulus = CoeffModulus.BFVDefault(polyModulusDegree);
-                parms.PlainModulus = new Modulus(1<<16);
+                parms.CoeffModulus = CoeffModulus.Create(polyModulusDegree, new int[] { 60, 40, 40, 60 });
+                
 
                 context = new SEALContext(parms);
 
@@ -93,6 +95,8 @@ namespace WinFormsApp1
                     evaluator = new Evaluator(context);
 
                     decryptor = new Decryptor(context, secretKey);
+
+                    encoder = new CKKSEncoder(context);
 
                 }
                 else
@@ -129,7 +133,9 @@ namespace WinFormsApp1
 
                         // Encrypt Transaction and Update Encrypted Credit Transactions List
 
-                        plainTransaction = new Plaintext($"{credit_trans}");
+                        plainTransaction = new Plaintext();
+
+                        encoder.Encode(credit_trans, Math.Pow(2.0, 40), plainTransaction);
 
                         encryptor.Encrypt(plainTransaction, encryptedTransaction);
 
@@ -147,7 +153,9 @@ namespace WinFormsApp1
 
                         // Encrypt Transaction and Update Encrypted Debit Transactions List
 
-                        plainTransaction = new Plaintext($"{debit_trans}");
+                        plainTransaction = new Plaintext();
+
+                        encoder.Encode(debit_trans, Math.Pow(2.0, 40), plainTransaction);
 
                         encryptor.Encrypt(plainTransaction, encryptedTransaction);
 
@@ -171,6 +179,21 @@ namespace WinFormsApp1
 
 
                 return output;
+            }
+
+            public string decryptResult(Ciphertext encryptedResult)
+            {
+                
+                using Plaintext plainResult = new Plaintext();
+                decryptor.Decrypt(encryptedResult, plainResult);
+
+                
+                List<double> decryptedResult = new List<double>();
+                encoder.Decode(plainResult, decryptedResult);
+
+                string result = (int)Math.Round(decryptedResult[0]) + "";
+
+                return result;
             }
 
             public string[] transactionsAggregation()
@@ -203,16 +226,11 @@ namespace WinFormsApp1
                 Ciphertext encryptedDebitSum = new Ciphertext();
                 evaluator.AddMany(encryptedDebitTransactions, encryptedDebitSum);
 
+                string decryptedCreditSum = decryptResult(encryptedCreditSum);
 
+                string decryptedDebitSum = decryptResult(encryptedDebitSum);
 
-                Plaintext decryptedCreditSum = new Plaintext();
-                decryptor.Decrypt(encryptedCreditSum, decryptedCreditSum);
-
-
-                Plaintext decryptedDebitSum = new Plaintext();
-                decryptor.Decrypt(encryptedDebitSum, decryptedDebitSum);
-
-                return [decryptedCreditSum + "", decryptedDebitSum + ""];
+                return [decryptedCreditSum, decryptedDebitSum];
             }
 
             public string account_balance()
@@ -245,21 +263,19 @@ namespace WinFormsApp1
 
                 Ciphertext encryptedCreditSum = new Ciphertext();
                 evaluator.AddMany(encryptedCreditTransactions, encryptedCreditSum);
+                
 
 
                 Ciphertext encryptedDebitSum = new Ciphertext();
                 evaluator.AddMany(encryptedDebitTransactions, encryptedDebitSum);
-
-                evaluator.SubInplace(encryptedCreditSum, encryptedDebitSum);
-
-                Plaintext decryptedBalance = new Plaintext();
-
-                decryptor.Decrypt(encryptedCreditSum, decryptedBalance);
-
                 
 
-                //return int.Parse(decryptedBalance+"",NumberStyles.HexNumber) + "";
-                return decryptedBalance + "";
+                evaluator.SubInplace(encryptedCreditSum, encryptedDebitSum);
+                
+                string decryptedBalance = decryptResult(encryptedCreditSum);
+
+                
+                return decryptedBalance;
 
             }
 
@@ -291,7 +307,9 @@ namespace WinFormsApp1
 
                 Ciphertext encryptedDebitCharges = new Ciphertext();
 
-                Plaintext plaintextDebitCharges = new Plaintext($"{DebitCharges}");
+                Plaintext plaintextDebitCharges = new Plaintext();
+
+                encoder.Encode(DebitCharges, Math.Pow(2.0, 40), plaintextDebitCharges);
 
                 encryptor.Encrypt(plaintextDebitCharges, encryptedDebitCharges);
 
@@ -299,19 +317,18 @@ namespace WinFormsApp1
 
                 Ciphertext encrypted_debit_transcations_count = new Ciphertext();
 
-                Plaintext plaintext_debit_transactions_count = new Plaintext($"{total_debit_transactions}");
+                Plaintext plaintext_debit_transactions_count = new Plaintext();
+
+                encoder.Encode(total_debit_transactions, Math.Pow(2.0, 40), plaintext_debit_transactions_count);
 
                 encryptor.Encrypt(plaintext_debit_transactions_count, encrypted_debit_transcations_count);
 
                 evaluator.MultiplyInplace(encryptedDebitCharges, encrypted_debit_transcations_count);
 
-                Plaintext decryptedCharges = new Plaintext();
+                string decryptedCharges = decryptResult(encryptedDebitCharges);
 
-                decryptor.Decrypt(encryptedDebitCharges, decryptedCharges);
-
+                return decryptedCharges;
                 
-
-                return decryptedCharges+"";
 
             }
 
@@ -460,6 +477,8 @@ namespace WinFormsApp1
             {
                 chart.ShowDialog();
             }
+
+            
         }
     }
 }
