@@ -41,7 +41,7 @@ namespace WinFormsApp1
             performance_chart.ChartAreas.Clear();
 
             
-            Series series1 = new Series("Homomorphic Operations");
+            Series series1 = new Series("Normal Operations");
             series1.ChartType = SeriesChartType.Bar;
             series1.Color = System.Drawing.Color.Blue; 
             
@@ -57,7 +57,7 @@ namespace WinFormsApp1
             }
 
             
-            Series series2 = new Series("Normal Operations");
+            Series series2 = new Series("Homomorphic Operations");
             series2.ChartType = SeriesChartType.Bar;
             series2.Color = System.Drawing.Color.Red; 
             for (int i = 0; i < Form1.homomorphic_operations_time.Count; i++)
