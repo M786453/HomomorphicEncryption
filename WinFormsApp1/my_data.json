@@ -1,5 +1,5 @@
 {
-    "DebitCharges":129,
+    "DebitCharges":563,
     "Transactions":
     [
         {"Credit":50000},
@@ -7,6 +7,22 @@
         {"Debit":1999},
         {"Debit":299},
         {"Debit":9399},
+        {"Debit":199},
+        {"Debit":199},
+        {"Debit":199},
+        {"Debit":199},
+        {"Debit":199},
+        {"Debit":199},
+        {"Debit":199},
+        {"Debit":199},
+        {"Debit":199},
+        {"Debit":199},
+        {"Debit":199},
+        {"Debit":199},
+        {"Debit":199},
+        {"Debit":199},
+        {"Debit":199},
+        {"Debit":199},
         {"Debit":199},
         {"Credit":555}
     ]
